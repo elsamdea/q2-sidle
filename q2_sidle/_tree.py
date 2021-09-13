@@ -102,7 +102,7 @@ def reconstruct_fragment_rep_seqs(
     kmer_map.drop_duplicates(['clean_name', 'db-seq', 'region'], 
                              inplace=True)
     kmer_map.set_index('db-seq', inplace=True)
-    kmer_map['sequence'] = aligned_sequences.reindex(kmer_map.index])
+    kmer_map['sequence'] = aligned_sequences.reindex([kmer_map.index])
     kmer_map.reset_index(inplace=True)
 
     # We'll drop kmer-specific info
