@@ -79,8 +79,8 @@ def reconstruct_fragment_rep_seqs(
     multiple_mapped = reconstruction_summary['num_seqs_mapped'] > 1
     multiple_mapped = multiple_mapped.index[multiple_mapped].values
     reconstruction_map = \
-        reconstruction_map.loc[reconstruction_map.isin(multiple_mapped)].copy()
-    reconstruction_summary = reconstruction_summary.loc[multiple_mapped]
+        reconstruction_map.reindex([reconstruction_map.isin(multiple_mapped)]).copy()
+    reconstruction_summary = reconstruction_summary.reindex([multiple_mapped])
 
     # Loads the mapping of the regional kmers, adds. the clean name
     # and tidies the information
@@ -102,7 +102,7 @@ def reconstruct_fragment_rep_seqs(
     kmer_map.drop_duplicates(['clean_name', 'db-seq', 'region'], 
                              inplace=True)
     kmer_map.set_index('db-seq', inplace=True)
-    kmer_map['sequence'] = aligned_sequences.loc[kmer_map.index]
+    kmer_map['sequence'] = aligned_sequences.reindex(kmer_map.index])
     kmer_map.reset_index(inplace=True)
 
     # We'll drop kmer-specific info
@@ -144,8 +144,8 @@ def reconstruct_fragment_rep_seqs(
     # concensus were amplified using this primer that we let the fuzzy
     # match go
     missing_start = concensus_map['start'].isna()
-    concensus_map.loc[missing_start, 'start'] = \
-        concensus_map.loc[missing_start, ['sequence', 'fwd-primer']].apply(
+    concensus_map.reindex([missing_start, 'start']) = \
+        concensus_map.reindex([missing_start, ['sequence', 'fwd-primer']]).apply(
         _find_approx_forward, axis=1
     )
 
