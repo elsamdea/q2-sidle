@@ -74,8 +74,8 @@ Using the same parameters, you will need to align the other two regions.
 	 --o-regional-alignment alignment/batman-align-map.qza
 
 	qiime sidle align-regional-kmers \
-	 --i-kmers alignment/green-lantern-kmer-db.qza \
-	 --i-rep-seq table/green-lantern-rep-seq.qza \
+	 --i-kmers database/green-lantern-kmer-db.qza \
+	 --i-rep-seq data/green-lantern-rep-seq.qza \
 	 --p-region GreenLantern \
 	 --p-n-workers 2 \
 	 --o-regional-alignment alignment/green-lantern-align-map.qza
